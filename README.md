@@ -5,11 +5,11 @@ This project is a frontend implementation of key sections from the Atlys France 
 
 ### Live Demo
 
-- **Vercel**: `https://your-vercel-deployment-url`
+- **Vercel**: [https://atlys-frontend-assignment-brown.vercel.app/](https://atlys-frontend-assignment-brown.vercel.app/)
 
 ### Repository
 
-- **GitHub**: `https://github.com/your-org/atlys-frontend-assignment`
+- **GitHub**: [https://github.com/mehul2401/atlys-frontend-assignment.git](https://github.com/mehul2401/atlys-frontend-assignment.git)
 
 ---
 
@@ -21,27 +21,22 @@ The page recreates a subset of the Atlys France visa experience:
   - Full-bleed hero image with approval-focused copy.
   - Interactive “Access To 29 Countries” chip that opens a responsive countries modal (side panel on desktop, bottom sheet on mobile).
   - CTA button that is desktop-only; mobile uses a fixed bottom CTA bar.
-
 - **Sticky Section Tabs**
   - Scroll-spy tab bar (`Overview`, `Documents`, `Why Atlys`, `Reviews`, `Additional`) using `IntersectionObserver`.
   - Smooth scroll navigation, keyboard navigable tablist, animated active underline.
   - Fixed bottom “Start Application” CTA on mobile, separate from the sticky nav.
-
 - **Approval Focused Support**
   - Two-column layout on desktop: copy on the left, animated document scroller on the right.
   - On mobile/tablet, collapses into a vertical timeline with dots and a card-like document view.
   - Driven by structured data from `data/supportDocuments.ts`.
-
 - **We Optimize for Approval**
   - Scroll-driven comparison carousel showing “Others vs Atlys” with 3D flip animations.
   - Data-driven slides defined in `data/visaPage.ts`.
   - Shared animation state for desktop cards and compact mobile layout.
-
 - **Success Stories**
   - Ratings header with platform scores (Trustpilot, App Store, Google Play).
   - Horizontally scrolling, auto-advancing carousel of testimonials.
   - Circular progress ring tied to the auto-advance timer, with robust handling of rapid manual navigation.
-
 - **One Visa Access**
   - Section explaining Schengen multi-country access.
   - 3D fanned stack of country cards with responsive geometry based on viewport width.
@@ -58,7 +53,7 @@ The page recreates a subset of the Atlys France visa experience:
 ### Install and Run
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/mehul2401/atlys-frontend-assignment.git
 cd atlys-frontend-assignment
 
 npm install
@@ -173,17 +168,14 @@ This layout keeps:
 - **LCP (Largest Contentful Paint)**
   - Hero image uses `next/image` with `priority` and `fetchPriority="high"` so it’s fetched as early as possible.
   - Sections below the fold (`WeOptimizeForApproval`, `SuccessStories`, `OneVisaAccess`) are dynamically imported.
-
 - **CLS (Cumulative Layout Shift)**
   - Fixed heights and responsive containers for cards and carousels.
   - `next/image` always has intrinsic dimensions or uses fixed-size containers.
   - Sticky nav and mobile CTA bar are rendered in predictable locations with no layout jumps.
-
 - **Main thread & JS**
   - Animation logic is confined to specific components.
   - Scroll listeners are debounced or powered by Framer Motion hooks (`useScroll`, `useMotionValueEvent`) instead of raw `scroll` spam.
   - Presentational subcomponents (`ReviewCard`, rich text, icons) are small and reusable.
-
 - **Assets**
   - Comparison card illustrations use `next/image` with `sizes` tuned to their rendered size so we don’t fetch unnecessarily large AVIFs.
   - Unused template assets (default Next.js SVGs) were removed from `public/` to keep the repo lean.
@@ -197,14 +189,11 @@ This layout keeps:
     - A main section component,
     - One or more subcomponents,
     - Any local data/constants (`*.data.ts`) colocated in that folder.
-
 - **Shared hooks**
   - `useIsMobile`: responsive breakpoint detection based on viewport width.
   - `useCardGeometry`: calculates dimensions, spacing, and transforms for 3D card fans; reused by `OneVisaAccess`.
-
 - **Shared utilities**
   - `lib/stack3d.ts` exposes `getTransformForIndex`, a reusable piece of math for arranging 3D stacks by index.
-
 - **UI primitives**
   - `Button`, `HeroStatChip`, `DocumentScroller`, `DocumentItem`, and `TabButton` provide consistent styling and behavior across the app.
 
@@ -218,7 +207,6 @@ This layout keeps:
   - Root layout wraps the page in a semantic `<main id="main-content">` landmark.
   - A “Skip to main content” link is available for keyboard and screen reader users.
   - Sections use semantic `<section>` with stable `id`s that match the sticky tabs.
-
 - **Tabs**
   - `SectionTabs` uses:
     - `role="tablist"` on the container,
@@ -226,12 +214,10 @@ This layout keeps:
   - Keyboard support:
     - Arrow keys, Home/End move between tabs,
     - Enter/Space activate a tab and scroll to its section.
-
 - **Modals**
   - `HeroCountriesModal` uses `role="dialog"`, `aria-modal="true"`, and `aria-labelledby`.
   - Click-outside, ESC, and explicit close buttons are supported.
   - Focus returns to the trigger element when the dialog closes.
-
 - **Buttons & icons**
   - Carousel arrow buttons have descriptive `aria-label`s.
   - Decorative icons are either `aria-hidden` or paired with visible text.
@@ -244,14 +230,12 @@ This layout keeps:
   - Scroll position is mapped to slide index using Framer Motion’s `useScroll`.
   - A custom animation loop handles 3D flips without skipping slides, even on rapid scroll or clicks.
   - Desktop and mobile variants share the same `MotionValue` so they stay in sync.
-
 - **Success Stories**
   - Auto-advancing carousel with:
     - Infinite loop via cloned items,
     - A pending queue system for smooth rapid-click behavior,
     - A progress ring that visually tracks time to the next slide.
   - Hover behavior is gated by `pointerType` to avoid mobile/touch quirks.
-
 - **Approval Focused Support**
   - `DocumentScroller` centers an active document with fades above and below on desktop.
   - Mobile uses a vertical timeline with dots and a card that scrolls with content.
@@ -287,4 +271,3 @@ Tailwind’s responsive utilities (`sm`, `md`, `lg`) are used consistently to en
 ## Author
 
 **Mehul Bhatia**
-
