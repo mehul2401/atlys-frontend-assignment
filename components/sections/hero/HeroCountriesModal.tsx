@@ -10,7 +10,7 @@ type HeroCountriesModalProps = {
 };
 
 export function HeroCountriesModal({ isOpen, onClose }: HeroCountriesModalProps) {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(640);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
@@ -54,16 +54,18 @@ export function HeroCountriesModal({ isOpen, onClose }: HeroCountriesModalProps)
   const panelBaseClasses = [
     "hide-scrollbars",
     "ease-inOutQuart",
-    "overflow-auto",
     "bg-white",
     "p-6",
+    "flex",
+    "flex-col",
+    "overflow-y-auto",
     isOpen ? "transition-transform duration-700" : "",
   ]
     .filter(Boolean)
     .join(" ");
 
   const panelClasses = isMobile
-    ? `fixed z-50 left-0 right-0 bottom-0 mx-4 h-[90vh] rounded-t-[1.875rem] ${
+    ? `fixed z-50 inset-x-0 bottom-0 max-h-[85vh] rounded-t-[1.875rem] ${
         isOpen ? "translate-y-0" : "translate-y-[100vh]"
       }`
     : `absolute z-50 top-4 right-4 bottom-4 rounded-[1.875rem] ${
@@ -98,20 +100,22 @@ export function HeroCountriesModal({ isOpen, onClose }: HeroCountriesModalProps)
           setTouchStartY(null);
         }}
       >
-        <div className="relative w-full bg-white">
-          <button
-            type="button"
-            onClick={onClose}
-            className="absolute right-0 top-0 cursor-pointer text-zinc-500 hover:text-zinc-800"
-            aria-label="Close countries list"
-          >
-            <svg focusable="false" viewBox="0 0 384 512" width="16" height="16" aria-hidden="true">
-              <path
-                d="M345 137c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-119 119L73 103c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l119 119L39 375c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l119-119L311 409c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-119-119L345 137z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
+        <div className="relative flex h-full w-full flex-col bg-white">
+          {!isMobile && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="absolute right-0 top-0 cursor-pointer text-zinc-500 hover:text-zinc-800"
+              aria-label="Close countries list"
+            >
+              <svg focusable="false" viewBox="0 0 384 512" width="16" height="16" aria-hidden="true">
+                <path
+                  d="M345 137c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-119 119L73 103c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l119 119L39 375c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l119-119L311 409c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-119-119L345 137z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          )}
 
           <div className="flex flex-col items-center pt-2">
             <div className="mb-4 h-[42px] w-[42px] rounded-full bg-[rgba(129,160,255,0.16)] p-2">
@@ -162,16 +166,17 @@ export function HeroCountriesModal({ isOpen, onClose }: HeroCountriesModalProps)
               ))}
             </div>
 
-            {isMobile && (
-              <button
-                type="button"
-                onClick={onClose}
-                className="sticky bottom-0 mt-2 w-full rounded-full bg-black px-5 py-3 text-center text-xs font-semibold text-white md:hidden"
-              >
-                Close
-              </button>
-            )}
           </div>
+
+          {isMobile && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="sticky bottom-0 mt-2 w-full rounded-full bg-black px-5 py-3 text-center text-xs font-semibold text-white md:hidden"
+            >
+              Close
+            </button>
+          )}
         </div>
       </div>
     </>

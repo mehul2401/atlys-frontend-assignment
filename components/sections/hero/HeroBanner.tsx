@@ -6,9 +6,13 @@ import { heroCopy, visaStats } from "@/data/visaInfo";
 import { HeroStatChip } from "@/components/ui/HeroStatChip";
 import { Button } from "@/components/ui/Button";
 import { HeroCountriesModal } from "@/components/sections/hero/HeroCountriesModal";
-
-const HERO_IMAGE_URL =
-  "https://media.atlys.com/b2c/clp/version-3/banner-images/desktop/FR.avif?tr=w-2560,q-80,f-avif&v=8";
+import {
+  HERO_TOP_BADGE_URL,
+  HERO_TOP_PERCENT_VALUE,
+  HERO_TOP_PERCENT_SUFFIX,
+  HERO_TOP_SUBTITLE,
+  HERO_IMAGE_URL,
+} from "@/components/sections/hero/HeroBanner.data";
 
 export const HeroBanner = () => {
   const [showCountries, setShowCountries] = useState(false);
@@ -32,9 +36,33 @@ export const HeroBanner = () => {
       <div className="absolute inset-0 z-0 bg-linear-to-b from-black/50 via-black/40 to-black/60" />
 
       <div className="relative z-20 flex min-h-[420px] flex-col items-center justify-center px-4 py-16 text-center sm:min-h-[480px] md:py-24">
+        <div test-id="hero-banner-top-section" className="flex flex-col items-center text-center">
+          <span className="font-denton relative -mt-[5px] text-5xl font-medium leading-none -tracking-wide text-white">
+            <span className="absolute -top-[40px] -left-[35px] block overflow-hidden">
+              <span className="block min-w-min select-none">
+                <Image
+                  src={HERO_TOP_BADGE_URL}
+                  alt="Guaranteed approval badge"
+                  width={150}
+                  height={100}
+                  className="h-[100px] min-w-[150px]"
+                  loading="lazy"
+                />
+              </span>
+            </span>
+            {HERO_TOP_PERCENT_VALUE}
+            <span className="ml-[2px] inline-block text-2xl font-black">
+              {HERO_TOP_PERCENT_SUFFIX}
+            </span>
+          </span>
+          <span className="mt-1 text-sm font-bold uppercase text-white">
+            {HERO_TOP_SUBTITLE}
+          </span>
+        </div>
+
         <h1
           id="hero-title"
-          className="text-4xl font-bold tracking-tight text-white drop-shadow-md sm:text-5xl lg:text-6xl"
+          className="mt-8 text-4xl font-bold tracking-tight text-white drop-shadow-md sm:text-5xl lg:text-6xl"
         >
           {heroCopy.title}
         </h1>
