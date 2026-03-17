@@ -1,0 +1,35 @@
+export const POPULAR_COUNTRIES = [
+  "Austria",
+  "Denmark",
+  "France",
+  "Germany",
+  "Greece",
+  "Italy",
+  "Netherlands",
+  "Spain",
+  "Switzerland",
+] as const;
+
+export const OTHER_COUNTRIES = [
+  "Belgium",
+  "Bulgaria",
+  "Croatia",
+  "Czech Republic",
+  "Estonia",
+  "Finland",
+  "Hungary",
+  "Iceland",
+  "Latvia",
+  "Liechtenstein",
+  "Lithuania",
+  "Luxembourg",
+  "Malta",
+  "Norway",
+  "Poland",
+  "Portugal",
+  "Romania",
+  "Slovakia",
+  "Slovenia",
+  "Sweden",
+] as const;
+
