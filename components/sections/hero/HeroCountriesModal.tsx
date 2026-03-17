@@ -51,8 +51,16 @@ export function HeroCountriesModal({ isOpen, onClose }: HeroCountriesModalProps)
   const overlayClasses =
     "absolute inset-0 z-40 bg-black/45 transition-opacity duration-700";
 
-  const panelBaseClasses =
-    "hide-scrollbars ease-inOutQuart overflow-auto bg-white p-6 transition-transform duration-700";
+  const panelBaseClasses = [
+    "hide-scrollbars",
+    "ease-inOutQuart",
+    "overflow-auto",
+    "bg-white",
+    "p-6",
+    isOpen ? "transition-transform duration-700" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const panelClasses = isMobile
     ? `fixed z-50 left-0 right-0 bottom-0 mx-4 h-[90vh] rounded-t-[1.875rem] ${
