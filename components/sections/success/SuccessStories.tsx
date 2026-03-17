@@ -38,6 +38,8 @@ export const SuccessStories = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const isAnimatingRef = useRef(false);
   const pendingDirRef = useRef<number | null>(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchDeltaXRef = useRef(0);
 
   const doSlide = useCallback((newIdx: number) => {
     isAnimatingRef.current = true;
@@ -173,6 +175,35 @@ export const SuccessStories = () => {
   const translateX = idx * CARD_SLOT;
   const dashOffset = RING_CIRC * (1 - progress);
 
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length !== 1) return;
+    touchStartXRef.current = e.touches[0].clientX;
+    touchDeltaXRef.current = 0;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current == null || e.touches.length !== 1) return;
+    const currentX = e.touches[0].clientX;
+    touchDeltaXRef.current = currentX - touchStartXRef.current;
+  };
+
+  const handleTouchEnd = () => {
+    const startX = touchStartXRef.current;
+    const deltaX = touchDeltaXRef.current;
+    touchStartXRef.current = null;
+    touchDeltaXRef.current = 0;
+
+    if (startX == null) return;
+    const threshold = 40;
+    if (Math.abs(deltaX) < threshold) return;
+
+    if (deltaX < 0) {
+      next();
+    } else {
+      prev();
+    }
+  };
+
   return (
     <section
       id="reviews"
@@ -186,6 +217,9 @@ export const SuccessStories = () => {
             <div
               ref={trackRef}
               className="flex gap-[18px] pl-4"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
               style={{
                 transform: `translateX(-${translateX}px)`,
                 transition: animating
